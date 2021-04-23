@@ -712,8 +712,8 @@ private void Execute()
 效能比較 (執行次數 10000)
 |            | Time ms | GC Alloc |
 |------------|---------|----------|
-| 沒有解構子 | 2.14    | 195.3 KB |
 | 有解構子   | 4.48    | 195.3 KB |
+| 沒有解構子 | 2.14    | 195.3 KB |
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
