@@ -566,7 +566,6 @@ public class TestMonoBehaviour : MonoBehaviour
 
 調整後
 ```csharp
-using JSLCore;  
 public class TestOptimizedMonoBehaviour : CoreComponent 
 {  
     private int m_count;  
