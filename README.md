@@ -27,13 +27,13 @@ Unity-CSharp-Optimize-Guildline
 # 盡可能的讓判斷條件不要在迴圈中
 調整前
 ```csharp
-void Update()  
+private void Update()  
 {  
-    for (int i = 0; i < myArray.Length; i++)  
+    for (int i = 0; i < array.Length; i++)  
     {  
         if (exampleBool)  
         {  
-            ExampleFunction(myArray[i]);  
+            ExampleFunction(array[i]);  
         }  
     }  
 }  
@@ -41,13 +41,13 @@ void Update()
 
 調整後
 ```csharp
-void Update()  
+private void Update()  
 {  
     if (exampleBool)  
     {  
-        for (int i = 0; i < myArray.Length; i++)  
+        for (int i = 0; i < array.Length; i++)  
         {  
-            ExampleFunction(myArray[i]);  
+            ExampleFunction(array[i]);  
         }  
     }  
 }  
@@ -59,12 +59,12 @@ void Update()
 ```csharp
 private int m_score;  
   
-public void IncrementScore(int incrementBy)  
+public void AddScore(int value)  
 {  
-    m_score += incrementBy;  
+    m_score += value;  
 }  
   
-void Update()  
+private void Update()  
 {  
     DisplayScore(m_score);  
 }  
@@ -74,9 +74,9 @@ void Update()
 ```csharp
 private int m_score;  
   
-public void IncrementScore(int incrementBy)  
+public void AddScore(int value)  
 {  
-    m_score += incrementBy;  
+    m_score += value;  
     DisplayScore(m_score);  
 }  
 ```
@@ -84,7 +84,7 @@ public void IncrementScore(int incrementBy)
 ## 案例2
 調整前
 ```csharp
-void Update()  
+private void Update()  
 {  
     ExampleGarbageGeneratingFunction(transform.position.x);  
 }  
@@ -92,15 +92,16 @@ void Update()
 
 調整後
 ```csharp
-private float m_previousTransformPositionX;  
+private float m_curPosX;
+private float m_lastPosX;  
   
-void Update()  
+private void Update()  
 {  
-    float transformPositionX = transform.position.x;  
-    if (transformPositionX != m_previousTransformPositionX)  
-    {  
-        ExampleGarbageGeneratingFunction(transformPositionX);  
-        m_previousTransformPositionX = transformPositionX;  
+    m_curPosX = transform.position.x;  
+    if (m_lastPosX != m_curPosX)  
+    {
+        m_lastPosX = m_curPosX;
+        ExampleGarbageGeneratingFunction(m_lastPosX);  
     }  
 }  
 ```
@@ -108,7 +109,7 @@ void Update()
 # 避免逐幀計算
 調整前
 ```csharp
-void Update()  
+private void Update()  
 {  
     ExampleExpensiveFunction();  
 }  
@@ -118,7 +119,7 @@ void Update()
 ```csharp
 private int m_interval = 3;  
   
-void Update()  
+private void Update()  
 {  
     if (Time.frameCount % m_interval == 0)  
     {  
@@ -133,10 +134,10 @@ void Update()
 ## 案例 GetComponent
 調整前
 ```csharp
-void Update()  
+private void Update()  
 {  
-    Renderer myRenderer = GetComponent<Renderer>();  
-    ExampleFunction(myRenderer);  
+    Renderer renderer = GetComponent<Renderer>();  
+    ExampleFunction(renderer);  
 }  
 ```
 
@@ -144,12 +145,12 @@ void Update()
 ```csharp
 private Renderer m_renderer;  
   
-void Start()  
+private void Awake()  
 {  
     m_renderer = GetComponent<Renderer>();  
 }  
   
-void Update()  
+private void Update()  
 {  
     ExampleFunction(m_renderer);  
 }  
@@ -158,7 +159,7 @@ void Update()
 ## 案例 FindObjectsOfType
 調整前
 ```csharp
-void OnTriggerEnter(Collider other)  
+private void OnTriggerEnter(Collider other)  
 {  
     Renderer[] renderers = FindObjectsOfType<Renderer>();  
     ExampleFunction(renderers);  
@@ -169,41 +170,41 @@ void OnTriggerEnter(Collider other)
 ```csharp
 private Renderer[] m_renderers;  
   
-void Start()  
+private void Awake()  
 {  
     m_renderers = FindObjectsOfType<Renderer>();  
 }  
   
-void OnTriggerEnter(Collider other)  
+private void OnTriggerEnter(Collider other)  
 {  
     ExampleFunction(m_renderers);  
 }  
 ```
 
-## 案例 new List()
+## 案例 List
 調整前
 ```csharp
-void Update()  
+private void Update()  
 {  
-    List myList = new List();  
-    PopulateList(myList);  
+    List list = new List();  
+    PopulateList(list);  
 }  
 ```
 
 調整後
 ```csharp
-private List m_myList = new List();  
+private List m_list = new List();  
 void Update()  
 {  
-    m_myList.Clear();  
-    PopulateList(m_myList);  
+    m_list.Clear();  
+    PopulateList(m_list);  
 }  
 ```
 
 ## 案例 new WaitForSeconds
 調整前
 ```csharp
-while (!isComplete)  
+while (!isDone)  
 {  
     yield return new WaitForSeconds(1f);  
 }  
@@ -213,7 +214,7 @@ while (!isComplete)
 ```csharp
 WaitForSeconds delay = new WaitForSeconds(1f);  
   
-while (!isComplete)  
+while (!isDone)  
 {  
     yield return delay;  
 }  
@@ -300,21 +301,21 @@ Camera.main
 # 使用 GameObject.CompareTag 取代 GameObject.tag
 調整前
 ```csharp
-private string m_playerTag = "Player";  
+private const string TAG_PLAYER = "Player";  
   
 void OnTriggerEnter(Collider other)  
 {  
-    bool isPlayer = other.gameObject.tag == m_playerTag;  
+    bool isPlayer = other.gameObject.tag == TAG_PLAYER;  
 }  
 ```
 
 調整後
 ```csharp
-private string m_playerTag = "Player";  
+private const string TAG_PLAYER = "Player";  
   
 void OnTriggerEnter(Collider other)  
 {  
-    bool isPlayer = other.gameObject.CompareTag(m_playerTag);  
+    bool isPlayer = other.gameObject.CompareTag(TAG_PLAYER);  
 }  
 ```
 
@@ -553,7 +554,7 @@ as: 作用跟強制類型轉換一樣，但不會跳出異常，如果轉換失�
 
 # 避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate
 由於 Unity MonoBehaviour 使用的是 Messaging System，能夠讓開發者在 MonoBehaviour 中自行定義特殊方法，如: Awake、Start、Update、FixedUpdate、LateUpdate 等。
-當有使用大量 MonoBehaviour.Update、FixedUpdate、LateUpdate 需求時，應使用 CoreComponent 取代。
+當有使用大量 MonoBehaviour.Update、FixedUpdate、LateUpdate 需求時，應自定義功能取代。
 
 調整前
 ```csharp
@@ -628,7 +629,7 @@ GameObject.Destroy(instance);
 調整後
 ```csharp
 GameObject instance = PoolManager.Instance.Get(m_prefab);  
-PoolManager.Instance.Destroy(instance);  
+PoolManager.Instance.Recycle(instance);  
 ```
 
 # 使用 struct 取代 class
