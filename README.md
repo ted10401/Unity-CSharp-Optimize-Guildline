@@ -289,14 +289,14 @@ public void UpdateCharacter()
 雖然 LINQ 簡潔易讀寫，但通常需要更多計算及記憶體配置
 
 # 避免使用下列 Unity API
-GameObject.SendMessage
-GameObject.BroadcastMessage
-UnityEngine.Object.Find()
-UnityEngine.Object.FindWithTag()
-UnityEngine.Object.FindObjectOfType()
-UnityEngine.Object.FindObjectsOfType()
-UnityEngine.Object.FindGameObjectsWithTag()
-Camera.main
+- [GameObject.SendMessage](https://docs.unity3d.com/ScriptReference/GameObject.SendMessage.html)
+- [GameObject.BroadcastMessage](https://docs.unity3d.com/ScriptReference/GameObject.BroadcastMessage.html)
+- [GameObject.Find](https://docs.unity3d.com/ScriptReference/GameObject.Find.html)
+- [GameObject.FindGameObjectsWithTag](https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html)
+- [GameObject.FindWithTag](https://docs.unity3d.com/ScriptReference/GameObject.FindWithTag.html)
+- [Object.FindObjectOfType](https://docs.unity3d.com/ScriptReference/Object.FindObjectOfType.html)
+- [Object.FindObjectsOfType](https://docs.unity3d.com/ScriptReference/Object.FindObjectsOfType.html)
+- [Camera.main](https://docs.unity3d.com/ScriptReference/Camera-main.html)
 
 # 使用 GameObject.CompareTag 取代 GameObject.tag
 調整前
@@ -452,7 +452,7 @@ for(int i = 0; i < length; i++)
 }  
 ```
 
-## 效能差異
+效能比較
 執行次數 100000
 |         | Time ms | GC Alloc |
 |---------|---------|----------|
@@ -478,7 +478,7 @@ for (int i = 0; i < length; i++)
 }  
 ```
 
-## 效能差異
+效能比較
 執行次數 100000
 |       | Time ms | GC Alloc |
 |-------|---------|----------|
@@ -514,7 +514,7 @@ FastEnum.TryParse<State>(stringValue, out result);
 FastEnum.ToString<State>((int)result); 
 ```
 
-## 效能差異
+效能比較
 執行次數 100000
 Enum > FastEnum
 |                 | Time ms         | GC Alloc        |
@@ -541,7 +541,7 @@ public int intValue { get; set; }
 public int intValue;  
 ```
 
-## 效能差異
+效能比較
 執行次數 1000000
 |          | Time ms | GC Alloc |
 |----------|---------|----------|
@@ -582,7 +582,7 @@ public class TestOptimizedMonoBehaviour : CoreComponent
 }  
 ```
 
-## 效能差異
+效能比較
 執行次數 10000
 |               | Time ms | GC Alloc |
 |---------------|---------|----------|
@@ -612,7 +612,7 @@ for (int i = 0; i < stringLength; i++)
 string output = string.Concat(chars);  
 ```
 
-## 效能差異
+效能比較
 執行次數 100000
 |               | Time ms  | GC Alloc |
 |---------------|----------|----------|
@@ -672,7 +672,7 @@ private void Execute()
 }  
 ```
 
-## 效能差異
+效能比較
 執行次數 10000
 |        | Time ms | GC Alloc |
 |--------|---------|----------|
@@ -717,7 +717,7 @@ private void Execute()
 }  
 ```
 
-## 效能差異
+效能比較
 執行次數 10000
 |            | Time ms | GC Alloc |
 |------------|---------|----------|
@@ -725,8 +725,8 @@ private void Execute()
 | 有解構子   | 4.48    | 195.3 KB |
 
 # 資料來源
-<a href="https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595">Fixing Performance Problems</a><br/>
-<a href="https://docs.microsoft.com/zh-tw/windows/mixed-reality/develop/unity/performance-recommendations-for-unity">對 Unity 的效能建議 - Mixed Reality</a><br/>
-<a href="https://www.youtube.com/watch?v=mQ2KTRn4BMI">Unite 2016 - Tools, Tricks and Technologies for Reaching Stutter Free 60 FPS in INSIDE</a><br/>
-<a href="https://blogs.unity3d.com/2015/12/23/1k-update-calls/">10000 Update() calls</a><br/>
-<a href="https://michaelscodingspot.com/avoid-gc-pressure/">8 Techniques to Avoid GC Pressure and Improve Performance in C# .NET</a><br/>
+- [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
+- [對 Unity 的效能建議 - Mixed Reality](https://docs.microsoft.com/zh-tw/windows/mixed-reality/develop/unity/performance-recommendations-for-unity)
+- [Unite 2016 - Tools, Tricks and Technologies for Reaching Stutter Free 60 FPS in INSIDE](https://www.youtube.com/watch?v=mQ2KTRn4BMI)
+- [10000 Update() calls](https://blogs.unity3d.com/2015/12/23/1k-update-calls/)
+- [8 Techniques to Avoid GC Pressure and Improve Performance in C# .NET](https://michaelscodingspot.com/avoid-gc-pressure/)
