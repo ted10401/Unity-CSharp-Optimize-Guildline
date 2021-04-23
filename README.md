@@ -1,6 +1,48 @@
-# Unity-CSharp-Optimize-Guildline
+Unity-CSharp-Optimize-Guildline
+=============================
 
-## 盡可能的讓判斷條件不要在迴圈中
+- [盡可能的讓判斷條件不要在迴圈中](#盡可能的讓判斷條件不要在迴圈中)
+- [只有在資料改變時在執行方法](#只有在資料改變時在執行方法)
+- [避免逐幀計算](#避免逐幀計算)
+- [使用快取](#使用快取)
+- [避免使用 LINQ](#避免使用-linq)
+- [避免使用下列 Unity API](#避免使用下列-unity-api)
+- [使用 GameObject.CompareTag 取代 GameObject.tag](#使用-gameobject.comparetag-取代-gameobject.tag)
+- [使用 yield return null 取代 yield return 0](#使用-yield-return-null-取代-yield-return-0)
+- [減少 Vector 計算](#減少-vector-計算)
+- [盡可能使用 Transform.localPosition](#盡可能使用-transform.localposition)
+- [減少取得 Transform.position、Transform.localPosition](#減少取得-transform.position、transform.localposition)
+- [避免使用 foreach](#避免使用-foreach)
+- [盡量使用 Array 取代 List](#盡量使用-array-取代-list)
+- [避免使用 Enum 函式](#避免使用-enum-函式)
+- [避免使用屬性 Property](#避免使用屬性-property)
+- [使用 is 或 as 而不是強制類型轉換](#使用-is-或-as-而不是強制類型轉換)
+- [避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate](#避免大量使用-monobehaviour.update、fixedupdate、lateupdate)
+- [大量字元串接時使用 String.Concat](#大量字元串接時使用-string.concat)
+- [生成大量相同物件使用 Object Pool](#生成大量相同物件使用-object-pool)
+- [使用 struct 取代 class](#使用-struct-取代-class)
+- [避免使用解構子](#避免使用解構子)
+- [資料來源](#資料來源)
+
+避免使用 LINQ
+避免使用下列 Unity API
+使用 GameObject.CompareTag 取代 GameObject.tag
+使用 yield return null 取代 yield return 0
+減少 Vector 計算
+盡可能使用 Transform.localPosition
+減少取得 Transform.position、Transform.localPosition
+避免使用 foreach
+盡量使用 Array 取代 List
+使用 FastEnum 取代 Enum
+避免使用屬性 Property
+使用 is 或 as 而不是強制類型轉換
+避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate
+大量字元串接時使用 String.Concat
+生成大量相同物件使用 Object Pool
+使用 struct 取代 class
+避免使用解構子
+
+# 盡可能的讓判斷條件不要在迴圈中
 調整前
 ```csharp
 void Update()  
@@ -29,8 +71,8 @@ void Update()
 }  
 ```
 
-## 只有在資料改變時在執行方法
-### 案例1
+# 只有在資料改變時在執行方法
+## 案例1
 調整前
 ```csharp
 private int m_score;  
@@ -57,7 +99,7 @@ public void IncrementScore(int incrementBy)
 }  
 ```
 
-### 案例2
+## 案例2
 調整前
 ```csharp
 void Update()  
@@ -81,7 +123,7 @@ void Update()
 }  
 ```
 
-## 避免逐幀計算 Time Slicing
+# 避免逐幀計算
 調整前
 ```csharp
 void Update()  
@@ -103,10 +145,10 @@ void Update()
 }  
 ```
 
-## 使用快取
+# 使用快取
 應盡量避免生成參考類型物件，即任何 new XXXXX()，否則會導致記憶體分配
 
-### 案例 GetComponent
+## 案例 GetComponent
 調整前
 ```csharp
 void Update()  
@@ -131,7 +173,7 @@ void Update()
 }  
 ```
 
-### 案例 FindObjectsOfType
+## 案例 FindObjectsOfType
 調整前
 ```csharp
 void OnTriggerEnter(Collider other)  
@@ -156,7 +198,7 @@ void OnTriggerEnter(Collider other)
 }  
 ```
 
-### 案例 new List()
+## 案例 new List()
 調整前
 ```csharp
 void Update()  
@@ -176,7 +218,7 @@ void Update()
 }  
 ```
 
-### 案例 new WaitForSeconds
+## 案例 new WaitForSeconds
 調整前
 ```csharp
 while (!isComplete)  
@@ -195,7 +237,7 @@ while (!isComplete)
 }  
 ```
 
-### 案例 transform
+## 案例 transform
 調整前
 ```csharp
 public void UpdateCharacter()  
@@ -227,7 +269,7 @@ public void UpdateCharacter()
 }  
 ```
 
-### 案例 Time.deltaTime
+## 案例 Time.deltaTime
 調整前
 ```csharp
 public void UpdateCharacter()  
@@ -260,10 +302,10 @@ public void UpdateCharacter()
 }  
 ```
 
-## 避免使用 LINQ
+# 避免使用 LINQ
 雖然 LINQ 簡潔易讀寫，但通常需要更多計算及記憶體配置
 
-## 避免使用下列 Unity API
+# 避免使用下列 Unity API
 GameObject.SendMessage
 GameObject.BroadcastMessage
 UnityEngine.Object.Find()
@@ -273,7 +315,7 @@ UnityEngine.Object.FindObjectsOfType()
 UnityEngine.Object.FindGameObjectsWithTag()
 Camera.main
 
-## 使用 GameObject.CompareTag 取代 GameObject.tag
+# 使用 GameObject.CompareTag 取代 GameObject.tag
 調整前
 ```csharp
 private string m_playerTag = "Player";  
@@ -294,7 +336,7 @@ void OnTriggerEnter(Collider other)
 }  
 ```
 
-## 使用 yield return null 取代 yield return 0
+# 使用 yield return null 取代 yield return 0
 調整前
 ```csharp
 yield return 0;  
@@ -305,8 +347,8 @@ yield return 0;
 yield return null; 
 ```
 
-## 減少 Vector 計算
-### 案例1
+# 減少 Vector 計算
+## 案例1
 調整前
 ```csharp
 public void UpdateCharacter()  
@@ -331,7 +373,7 @@ public void UpdateCharacter()
 }  
 ```
 
-### 案例2
+## 案例2
 調整前
 ```csharp
 public void UpdateCharacter()  
@@ -358,7 +400,7 @@ public void UpdateCharacter()
 }  
 ```
 
-## 盡可能使用 Transform.localPosition
+# 盡可能使用 Transform.localPosition
 調整前
 ```csharpcsharp
 public void UpdateCharacter()  
@@ -383,7 +425,7 @@ public void UpdateCharacter()
 }  
 ```
 
-## 減少取得 Transform.position、Transform.localPosition
+# 減少取得 Transform.position、Transform.localPosition
 調整前
 ```csharp
 public void UpdateCharacter()  
@@ -409,7 +451,7 @@ public void UpdateCharacter()
 }  
 ```
 
-## 避免使用 foreach
+# 避免使用 foreach
 調整前
 ```csharp
 foreach(int value in m_list)  
@@ -427,14 +469,14 @@ for(int i = 0; i < length; i++)
 }  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 100000
 |         | Time ms | GC Alloc |
 |---------|---------|----------|
 | foreach | 28.04   | 48 B     |
 | for     | 17.47   | 0 B      |
 
-## 盡量使用 Array 取代 List
+# 盡量使用 Array 取代 List
 調整前
 ```csharp
 int length = m_list.Count;  
@@ -453,14 +495,14 @@ for (int i = 0; i < length; i++)
 }  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 100000
 |       | Time ms | GC Alloc |
 |-------|---------|----------|
 | List  | 17.44   | 0 B      |
 | Array | 8.70    | 0 B      |
 
-## 使用 FastEnum 取代 Enum
+# 避免使用 Enum 函式
 調整前
 ```csharp
 Enum.GetName(typeof(State), stringValue);  
@@ -489,7 +531,7 @@ FastEnum.TryParse<State>(stringValue, out result);
 FastEnum.ToString<State>((int)result); 
 ```
 
-效能差異
+## 效能差異
 執行次數 100000
 Enum > FastEnum
 |                 | Time ms         | GC Alloc        |
@@ -502,7 +544,7 @@ Enum > FastEnum
 | TryParse        | 761.73 > 185.73 | 12.2 MB > 0 B   |
 | ToString        | 579.02 > 18.10  | 3.8 MB > 0 B    |
 
-## 屬性 Property
+# 避免使用屬性 Property
 屬性 Property 底層依然是透過方法實現
 使用 Property 會導致執行效能較差，但使用上及維護上會較為方便，能夠針對 get 或 set 設置不同的訪問層級和檢查機制，且支援任何方法的語言特性，如 virtual、abstract
 
@@ -516,18 +558,18 @@ public int intValue { get; set; }
 public int intValue;  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 1000000
 |          | Time ms | GC Alloc |
 |----------|---------|----------|
 | Property | 41.00   | 0 B      |
 | Field    | 0       | 0 B      |
 
-## 使用 is 或 as 而不是強制類型轉換
+# 使用 is 或 as 而不是強制類型轉換
 is: 能夠檢查一個對象是否兼容於其他指定類型，回傳一個 Bool 值且不會跳出異常
 as: 作用跟強制類型轉換一樣，但不會跳出異常，如果轉換失敗，會回傳 null
 
-## 避免使用大量 MonoBehaviour
+# 避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate
 由於 Unity MonoBehaviour 使用的是 Messaging System，能夠讓開發者在 MonoBehaviour 中自行定義特殊方法，如: Awake、Start、Update、FixedUpdate、LateUpdate 等。
 當有使用大量 MonoBehaviour.Update、FixedUpdate、LateUpdate 需求時，應使用 CoreComponent 取代。
 
@@ -557,14 +599,14 @@ public class TestOptimizedMonoBehaviour : CoreComponent
 }  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 10000
 |               | Time ms | GC Alloc |
 |---------------|---------|----------|
 | MonoBehaviour | 4.01    | 0 B      |
 | CoreComponent | 1.82    | 0 B      |
 
-## 大量字元串接時使用 String.Concat
+# 大量字元串接時使用 String.Concat
 調整前
 ```csharp
 char c = 'X';  
@@ -587,14 +629,14 @@ for (int i = 0; i < stringLength; i++)
 string output = string.Concat(chars);  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 100000
 |               | Time ms  | GC Alloc |
 |---------------|----------|----------|
 | String +=     | 11628.02 | 1.32 GB  |
 | String.Concat | 112.28   | 3.3 MB   |
 
-## 生成大量相同物件使用 Object Pool
+# 生成大量相同物件使用 Object Pool
 調整前
 ```csharp
 GameObject instance = GameObject.Instantiate(m_prefab);  
@@ -607,7 +649,7 @@ GameObject instance = PoolManager.Instance.Get(m_prefab);
 PoolManager.Instance.Destroy(instance);  
 ```
 
-## 使用 struct 取代 class
+# 使用 struct 取代 class
 調整前
 ```csharp
 class VectorClass  
@@ -647,14 +689,14 @@ private void Execute()
 }  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 10000
 |        | Time ms | GC Alloc |
 |--------|---------|----------|
 | class  | 5.68    | 312.5 KB |
 | struct | 2.00    | 78.2 KB  |
 
-## 避免使用解構子
+# 避免使用解構子
 調整前
 ```csharp
 class SimpleWithFinalizer  
@@ -692,14 +734,14 @@ private void Execute()
 }  
 ```
 
-### 效能差異
+## 效能差異
 執行次數 10000
 |            | Time ms | GC Alloc |
 |------------|---------|----------|
 | 沒有解構子 | 2.14    | 195.3 KB |
 | 有解構子   | 4.48    | 195.3 KB |
 
-## 資料來源
+# 資料來源
 <a href="https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595">Fixing Performance Problems</a><br/>
 <a href="https://docs.microsoft.com/zh-tw/windows/mixed-reality/develop/unity/performance-recommendations-for-unity">對 Unity 的效能建議 - Mixed Reality</a><br/>
 <a href="https://www.youtube.com/watch?v=mQ2KTRn4BMI">Unite 2016 - Tools, Tricks and Technologies for Reaching Stutter Free 60 FPS in INSIDE</a><br/>
