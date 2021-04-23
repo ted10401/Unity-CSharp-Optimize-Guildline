@@ -512,7 +512,7 @@ FastEnum.TryParse<State>(stringValue, out result);
 FastEnum.ToString<State>((int)result); 
 ```
 
-效能比較 (執行次數 100000)
+效能比較 (執行次數 100000)<br/>
 Enum > FastEnum
 |                 | Time ms         | GC Alloc        |
 |-----------------|-----------------|-----------------|
@@ -525,8 +525,7 @@ Enum > FastEnum
 | ToString        | 579.02 > 18.10  | 3.8 MB > 0 B    |
 
 # 避免使用屬性 Property
-屬性 Property 底層依然是透過方法實現
-使用 Property 會導致執行效能較差，但使用上及維護上會較為方便，能夠針對 get 或 set 設置不同的訪問層級和檢查機制，且支援任何方法的語言特性，如 virtual、abstract
+屬性 Property 底層依然是透過方法實現，使用 Property 會導致執行效能較差，但使用上及維護上會較為方便，能夠針對 get 或 set 設置不同的訪問層級和檢查機制，且支援任何方法的語言特性，如 virtual、abstract。
 
 調整前
 ```csharp
@@ -545,11 +544,11 @@ public int intValue;
 | Field    | 0       | 0 B      |
 
 # 使用 is 或 as 而不是強制類型轉換
-is: 能夠檢查一個對象是否兼容於其他指定類型，回傳一個 Bool 值且不會跳出異常
+is: 能夠檢查一個對象是否兼容於其他指定類型，回傳一個 Bool 值且不會跳出異常<br/>
 as: 作用跟強制類型轉換一樣，但不會跳出異常，如果轉換失敗，會回傳 null
 
 # 避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate
-由於 Unity MonoBehaviour 使用的是 Messaging System，能夠讓開發者在 MonoBehaviour 中自行定義特殊方法，如: Awake、Start、Update、FixedUpdate、LateUpdate 等。
+由於 Unity MonoBehaviour 使用的是 Messaging System，能夠讓開發者在 MonoBehaviour 中自行定義特殊方法，如: Awake、Start、Update、FixedUpdate、LateUpdate 等。<br/>
 當有使用大量 MonoBehaviour.Update、FixedUpdate、LateUpdate 需求時，應自定義功能取代。
 
 調整前
