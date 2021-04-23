@@ -24,24 +24,6 @@ Unity-CSharp-Optimize-Guildline
 - [避免使用解構子](#避免使用解構子)
 - [資料來源](#資料來源)
 
-避免使用 LINQ
-避免使用下列 Unity API
-使用 GameObject.CompareTag 取代 GameObject.tag
-使用 yield return null 取代 yield return 0
-減少 Vector 計算
-盡可能使用 Transform.localPosition
-減少取得 Transform.position、Transform.localPosition
-避免使用 foreach
-盡量使用 Array 取代 List
-使用 FastEnum 取代 Enum
-避免使用屬性 Property
-使用 is 或 as 而不是強制類型轉換
-避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate
-大量字元串接時使用 String.Concat
-生成大量相同物件使用 Object Pool
-使用 struct 取代 class
-避免使用解構子
-
 # 盡可能的讓判斷條件不要在迴圈中
 調整前
 ```csharp
