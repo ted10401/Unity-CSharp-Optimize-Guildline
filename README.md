@@ -452,8 +452,7 @@ for(int i = 0; i < length; i++)
 }  
 ```
 
-效能比較
-執行次數 100000
+效能比較 (執行次數 100000)
 |         | Time ms | GC Alloc |
 |---------|---------|----------|
 | foreach | 28.04   | 48 B     |
@@ -478,8 +477,7 @@ for (int i = 0; i < length; i++)
 }  
 ```
 
-效能比較
-執行次數 100000
+效能比較 (執行次數 100000)
 |       | Time ms | GC Alloc |
 |-------|---------|----------|
 | List  | 17.44   | 0 B      |
@@ -514,8 +512,7 @@ FastEnum.TryParse<State>(stringValue, out result);
 FastEnum.ToString<State>((int)result); 
 ```
 
-效能比較
-執行次數 100000
+效能比較 (執行次數 100000)
 Enum > FastEnum
 |                 | Time ms         | GC Alloc        |
 |-----------------|-----------------|-----------------|
@@ -541,8 +538,7 @@ public int intValue { get; set; }
 public int intValue;  
 ```
 
-效能比較
-執行次數 1000000
+效能比較 (執行次數 1000000)
 |          | Time ms | GC Alloc |
 |----------|---------|----------|
 | Property | 41.00   | 0 B      |
@@ -582,8 +578,7 @@ public class TestOptimizedMonoBehaviour : CoreComponent
 }  
 ```
 
-效能比較
-執行次數 10000
+效能比較 (執行次數 10000)
 |               | Time ms | GC Alloc |
 |---------------|---------|----------|
 | MonoBehaviour | 4.01    | 0 B      |
@@ -612,8 +607,7 @@ for (int i = 0; i < stringLength; i++)
 string output = string.Concat(chars);  
 ```
 
-效能比較
-執行次數 100000
+效能比較 (執行次數 100000)
 |               | Time ms  | GC Alloc |
 |---------------|----------|----------|
 | String +=     | 11628.02 | 1.32 GB  |
@@ -672,8 +666,7 @@ private void Execute()
 }  
 ```
 
-效能比較
-執行次數 10000
+效能比較 (執行次數 10000)
 |        | Time ms | GC Alloc |
 |--------|---------|----------|
 | class  | 5.68    | 312.5 KB |
@@ -717,8 +710,7 @@ private void Execute()
 }  
 ```
 
-效能比較
-執行次數 10000
+效能比較 (執行次數 10000)
 |            | Time ms | GC Alloc |
 |------------|---------|----------|
 | 沒有解構子 | 2.14    | 195.3 KB |
