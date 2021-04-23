@@ -2,7 +2,7 @@
 
 ## 盡可能的讓判斷條件不要在迴圈中
 調整前
-```
+```csharp
 void Update()  
 {  
     for (int i = 0; i < myArray.Length; i++)  
@@ -16,7 +16,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 void Update()  
 {  
     if (exampleBool)  
@@ -32,7 +32,7 @@ void Update()
 ## 只有在資料改變時在執行方法
 ### 案例1
 調整前
-```
+```csharp
 private int m_score;  
   
 public void IncrementScore(int incrementBy)  
@@ -47,7 +47,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 private int m_score;  
   
 public void IncrementScore(int incrementBy)  
@@ -59,7 +59,7 @@ public void IncrementScore(int incrementBy)
 
 ### 案例2
 調整前
-```
+```csharp
 void Update()  
 {  
     ExampleGarbageGeneratingFunction(transform.position.x);  
@@ -67,7 +67,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 private float m_previousTransformPositionX;  
   
 void Update()  
@@ -83,7 +83,7 @@ void Update()
 
 ## 避免逐幀計算 Time Slicing
 調整前
-```
+```csharp
 void Update()  
 {  
     ExampleExpensiveFunction();  
@@ -91,7 +91,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 private int m_interval = 3;  
   
 void Update()  
@@ -108,7 +108,7 @@ void Update()
 
 ### 案例 GetComponent
 調整前
-```
+```csharp
 void Update()  
 {  
     Renderer myRenderer = GetComponent<Renderer>();  
@@ -117,7 +117,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 private Renderer m_renderer;  
   
 void Start()  
@@ -133,7 +133,7 @@ void Update()
 
 ### 案例 FindObjectsOfType
 調整前
-```
+```csharp
 void OnTriggerEnter(Collider other)  
 {  
     Renderer[] renderers = FindObjectsOfType<Renderer>();  
@@ -142,7 +142,7 @@ void OnTriggerEnter(Collider other)
 ```
 
 調整後
-```
+```csharp
 private Renderer[] m_renderers;  
   
 void Start()  
@@ -158,7 +158,7 @@ void OnTriggerEnter(Collider other)
 
 ### 案例 new List()
 調整前
-```
+```csharp
 void Update()  
 {  
     List myList = new List();  
@@ -167,7 +167,7 @@ void Update()
 ```
 
 調整後
-```
+```csharp
 private List m_myList = new List();  
 void Update()  
 {  
@@ -178,7 +178,7 @@ void Update()
 
 ### 案例 new WaitForSeconds
 調整前
-```
+```csharp
 while (!isComplete)  
 {  
     yield return new WaitForSeconds(1f);  
@@ -186,7 +186,7 @@ while (!isComplete)
 ```
 
 調整後
-```
+```csharp
 WaitForSeconds delay = new WaitForSeconds(1f);  
   
 while (!isComplete)  
@@ -197,7 +197,7 @@ while (!isComplete)
 
 ### 案例 transform
 調整前
-```
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = transform.position;  
@@ -209,7 +209,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 private Transform m_transform;  
   
 private void Awake()  
@@ -229,7 +229,7 @@ public void UpdateCharacter()
 
 ### 案例 Time.deltaTime
 調整前
-```
+```csharp
 public void UpdateCharacter()  
 {  
     float factor = speed * speedFactor  
@@ -244,7 +244,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 private float m_deltaTime;  
   
 public void UpdateCharacter()  
@@ -275,7 +275,7 @@ Camera.main
 
 ## 使用 GameObject.CompareTag 取代 GameObject.tag
 調整前
-```
+```csharp
 private string m_playerTag = "Player";  
   
 void OnTriggerEnter(Collider other)  
@@ -285,7 +285,7 @@ void OnTriggerEnter(Collider other)
 ```
 
 調整後
-```
+```csharp
 private string m_playerTag = "Player";  
   
 void OnTriggerEnter(Collider other)  
@@ -296,19 +296,19 @@ void OnTriggerEnter(Collider other)
 
 ## 使用 yield return null 取代 yield return 0
 調整前
-```
+```csharp
 yield return 0;  
 ```
 
 調整後
-```
+```csharp
 yield return null; 
 ```
 
 ## 減少 Vector 計算
 ### 案例1
 調整前
-```
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = transform.position;  
@@ -320,7 +320,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = transform.position;  
@@ -333,7 +333,7 @@ public void UpdateCharacter()
 
 ### 案例2
 調整前
-```
+```csharp
 public void UpdateCharacter()  
 {  
     m_lastPos += wantedVelocity * (speed * speedFactor  
@@ -344,7 +344,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 public void UpdateCharacter()  
 {  
     float factor = speed * speedFactor  
@@ -360,7 +360,7 @@ public void UpdateCharacter()
 
 ## 盡可能使用 Transform.localPosition
 調整前
-```
+```csharpcsharp
 public void UpdateCharacter()  
 {  
     var lastPos = m_transform.position;  
@@ -372,7 +372,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = m_transform.localPosition;  
@@ -385,7 +385,7 @@ public void UpdateCharacter()
 
 ## 減少取得 Transform.position、Transform.localPosition
 調整前
-```
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = m_transform.localPosition;  
@@ -397,7 +397,7 @@ public void UpdateCharacter()
 ```
 
 調整後
-```
+```csharp
 private Vector3 m_lastPos = Vector3.zero;  
   
 public void UpdateCharacter()  
@@ -411,7 +411,7 @@ public void UpdateCharacter()
 
 ## 避免使用 foreach
 調整前
-```
+```csharp
 foreach(int value in m_list)  
 {  
     DoSomething(value);  
@@ -419,7 +419,7 @@ foreach(int value in m_list)
 ```
 
 調整後
-```
+```csharp
 int length = m_list.Count;  
 for(int i = 0; i < length; i++)  
 {  
@@ -436,7 +436,7 @@ for(int i = 0; i < length; i++)
 
 ## 盡量使用 Array 取代 List
 調整前
-```
+```csharp
 int length = m_list.Count;  
 for(int i = 0; i < length; i++)  
 {  
@@ -445,7 +445,7 @@ for(int i = 0; i < length; i++)
 ```
 
 調整後
-```
+```csharp
 int length = m_array.Length;  
 for (int i = 0; i < length; i++)  
 {  
@@ -462,7 +462,7 @@ for (int i = 0; i < length; i++)
 
 ## 使用 FastEnum 取代 Enum
 調整前
-```
+```csharp
 Enum.GetName(typeof(State), stringValue);  
 Enum.GetName(typeof(State), intValue);  
 Enum.GetNames(typeof(State));  
@@ -476,7 +476,7 @@ result.ToString();
 ```
 
 調整後
-```
+```csharp
 FastEnum.GetName<State>(stringValue);  
 FastEnum.GetName<State>(intValue);  
 FastEnum.GetNames<State>();  
@@ -507,12 +507,12 @@ Enum > FastEnum
 使用 Property 會導致執行效能較差，但使用上及維護上會較為方便，能夠針對 get 或 set 設置不同的訪問層級和檢查機制，且支援任何方法的語言特性，如 virtual、abstract
 
 調整前
-```
+```csharp
 public int intValue { get; set; }  
 ```
 
 調整後
-```
+```csharp
 public int intValue;  
 ```
 
@@ -532,7 +532,7 @@ as: 作用跟強制類型轉換一樣，但不會跳出異常，如果轉換失�
 當有使用大量 MonoBehaviour.Update、FixedUpdate、LateUpdate 需求時，應使用 CoreComponent 取代。
 
 調整前
-```
+```csharp
 using UnityEngine;  
 public class TestMonoBehaviour : MonoBehaviour  
 {  
@@ -545,7 +545,7 @@ public class TestMonoBehaviour : MonoBehaviour
 ```
 
 調整後
-```
+```csharp
 using JSLCore;  
 public class TestOptimizedMonoBehaviour : CoreComponent 
 {  
@@ -566,7 +566,7 @@ public class TestOptimizedMonoBehaviour : CoreComponent
 
 ## 大量字元串接時使用 String.Concat
 調整前
-```
+```csharp
 char c = 'X';  
 string output = string.Empty;  
 for(int i = 0; i < stringLength; i++)  
@@ -576,7 +576,7 @@ for(int i = 0; i < stringLength; i++)
 ```
 
 調整後
-```
+```csharp
 char c = 'X';  
 char[] chars = new char[stringLength];  
 for (int i = 0; i < stringLength; i++)  
@@ -596,20 +596,20 @@ string output = string.Concat(chars);
 
 ## 生成大量相同物件使用 Object Pool
 調整前
-```
+```csharp
 GameObject instance = GameObject.Instantiate(m_prefab);  
 GameObject.Destroy(instance);  
 ```
 
 調整後
-```
+```csharp
 GameObject instance = PoolManager.Instance.Get(m_prefab);  
 PoolManager.Instance.Destroy(instance);  
 ```
 
 ## 使用 struct 取代 class
 調整前
-```
+```csharp
 class VectorClass  
 {  
     public int X { get; set; }  
@@ -629,7 +629,7 @@ private void Execute()
 ```
 
 調整後
-```
+```csharp
 struct VectorStruct  
 {  
     public int X { get; set; }  
@@ -656,7 +656,7 @@ private void Execute()
 
 ## 避免使用解構子
 調整前
-```
+```csharp
 class SimpleWithFinalizer  
 {  
     public int x { get; set; }  
@@ -677,7 +677,7 @@ private void Execute()
 ```
 
 調整後
-```
+```csharp
 class Simple  
 {  
     public int x { get; set; }  
