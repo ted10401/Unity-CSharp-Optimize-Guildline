@@ -782,7 +782,7 @@ Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
 比起使用參數名稱傳遞資料，使用 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html) 更為高效。
 
 調整前
-```
+```csharp
 private const string _Color = "_Color";
 private void SetColor(Color value)
 {
@@ -791,7 +791,7 @@ private void SetColor(Color value)
 ```
 
 調整後
-```
+```csharp
 private readonly int _Color = Shader.PropertyToID("_Color");
 private void SetColor(Color value)
 {
@@ -809,7 +809,7 @@ private void SetColor(Color value)
 同理 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)，使用 [Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html) 更為高效。
 
 調整前
-```
+```csharp
 private const string _BoolParameterName = "_BoolParameterName";
 private void SetBoolParameter(bool value)
 {
@@ -818,7 +818,7 @@ private void SetBoolParameter(bool value)
 ```
 
 調整後
-```
+```csharp
 private readonly int _BoolParameterName = Animator.StringToHash("_BoolParameterName");
 private void SetBoolParameter(bool value)
 {
