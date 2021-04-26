@@ -22,6 +22,7 @@ Unity-CSharp-Optimize-Guildline
 - [生成大量相同物件使用 Object Pool](#生成大量相同物件使用-object-pool)
 - [使用 struct 取代 class](#使用-struct-取代-class)
 - [避免使用解構子](#避免使用解構子)
+- [盡可能預先快取組件](#盡可能預先快取組件)
 - [資料來源](#資料來源)
 
 # 盡可能的讓判斷條件不要在迴圈中
@@ -713,6 +714,30 @@ private void Execute()
 |------------|---------|----------|
 | 有解構子   | 4.48    | 195.3 KB |
 | 沒有解構子 | 2.14    | 195.3 KB |
+
+#盡可能預先快取組件
+```csharp
+[SerializeField] protected Transform m_transform = null;
+[SerializeField] protected RectTransform m_rectTransform = null;
+[SerializeField] protected Canvas m_canvas = null;
+[SerializeField] protected CanvasScaler m_canvasScaler = null;
+[SerializeField] protected GraphicRaycaster m_graphicRaycaster = null;
+[SerializeField] protected CanvasGroup m_canvasGroup = null;
+[SerializeField] protected ScrollRect[] m_scrollRects = null;
+[SerializeField] protected InputField[] m_inputFields = null;
+
+protected override void CacheComponents()
+{
+    CacheComponent(ref m_transform);
+    CacheComponent(ref m_rectTransform);
+    CacheComponent(ref m_canvas);
+    CacheComponent(ref m_canvasScaler);
+    CacheComponent(ref m_graphicRaycaster);
+    CacheComponent(ref m_canvasGroup);
+    CacheComponentsInChildren(ref m_scrollRects, true);
+    CacheComponentsInChildren(ref m_inputFields, true);
+}
+```
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
