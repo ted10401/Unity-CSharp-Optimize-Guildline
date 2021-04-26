@@ -779,12 +779,10 @@ protected override void CacheComponents()
 
 # 設定 Shader 參數時，使用 PropertyToID
 Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
-比起使用參數名稱傳遞資料，使用識別符更為高效。<br/>
-[Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)
+比起使用參數名稱傳遞資料，使用 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html) 更為高效。
 
 # 設定 Animator 參數時，使用 StringToHash
-同理 Shader.ProertyToID，使用 Animator.StringToHash 更為高效。
-[Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html)
+同理 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)，使用 [Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html) 更為高效。
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
