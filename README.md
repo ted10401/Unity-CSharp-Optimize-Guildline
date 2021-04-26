@@ -781,6 +781,24 @@ protected override void CacheComponents()
 Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
 比起使用參數名稱傳遞資料，使用 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html) 更為高效。
 
+調整前
+```
+private const string _Color = "_Color";
+private void SetColor(Color value)
+{
+    m_material.SetColor(_Color, value);
+}
+```
+
+調整後
+```
+private readonly int _Color = Shader.PropertyToID("_Color");
+private void SetColor(Color value)
+{
+    m_material.SetColor(_Color, value);
+}
+```
+
 效能比較 (執行次數 100000)
 |                                              | Time ms | GC Alloc |
 |----------------------------------------------|---------|----------|
@@ -789,6 +807,24 @@ Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
 
 # 設定 Animator 參數時，使用 StringToHash
 同理 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)，使用 [Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html) 更為高效。
+
+調整前
+```
+private const string _BoolParameterName = "_BoolParameterName";
+private void SetBoolParameter(bool value)
+{
+    m_animator.SetBool(_BoolParameterName, value);
+}
+```
+
+調整後
+```
+private readonly int _BoolParameterName = Animator.StringToHash("_BoolParameterName");
+private void SetBoolParameter(bool value)
+{
+    m_animator.SetBool(_BoolParameterName, value);
+}
+```
 
 效能比較 (執行次數 100000)
 |                                            | Time ms | GC Alloc |
