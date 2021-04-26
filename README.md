@@ -716,6 +716,31 @@ private void Execute()
 | 沒有解構子 | 2.14    | 195.3 KB |
 
 #盡可能預先快取組件
+調整前
+```csharp
+[SerializeField] protected Transform m_transform = null;
+[SerializeField] protected RectTransform m_rectTransform = null;
+[SerializeField] protected Canvas m_canvas = null;
+[SerializeField] protected CanvasScaler m_canvasScaler = null;
+[SerializeField] protected GraphicRaycaster m_graphicRaycaster = null;
+[SerializeField] protected CanvasGroup m_canvasGroup = null;
+[SerializeField] protected ScrollRect[] m_scrollRects = null;
+[SerializeField] protected InputField[] m_inputFields = null;
+
+private void Awake()
+{
+    m_transform = transform;
+    m_rectTransform = GetComponent<RectTransform>();
+    m_canvas = GetComponent<Canvas>();
+    m_canvasScaler = GetComponent<CanvasScaler>();
+    m_graphicRaycaster = GetComponent<GraphicRaycaster>();
+    m_canvasGroup = GetComponent<CanvasGroup>();
+    m_scrollRects = GetComponentsInChildren<ScrollRect>(true);
+    m_inputFields = GetComponentsInChildren<InputField>(true);
+}
+```
+
+調整後
 ```csharp
 [SerializeField] protected Transform m_transform = null;
 [SerializeField] protected RectTransform m_rectTransform = null;
