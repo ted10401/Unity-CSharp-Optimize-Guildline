@@ -781,8 +781,20 @@ protected override void CacheComponents()
 Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
 比起使用參數名稱傳遞資料，使用 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html) 更為高效。
 
+效能比較 (執行次數 100000)
+|                                              | Time ms | GC Alloc |
+|----------------------------------------------|---------|----------|
+| Material.SetColor(string name, Color value)  | 44.38   | 0 B      |
+| Material.SetColor(int nameID, Color value)   | 29.83   | 0 B      |
+
 # 設定 Animator 參數時，使用 StringToHash
 同理 [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)，使用 [Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html) 更為高效。
+
+效能比較 (執行次數 100000)
+|                                            | Time ms | GC Alloc |
+|--------------------------------------------|---------|----------|
+| Animator.SetBool(string name, bool value)  | 19.86   | 0 B      |
+| Animator.SetBool(int nameID, bool value)   | 16.78   | 0 B      |
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
