@@ -24,6 +24,8 @@ Unity-CSharp-Optimize-Guildline
 - [避免使用解構子](#避免使用解構子)
 - [盡可能預先快取組件](#盡可能預先快取組件)
 - [看不到物件時，關閉不需要執行的組件](#看不到物件時關閉不需要執行的組件)
+- [設定 Shader 參數時，使用 PropertyToID](設定-shader-參數時使用-propertytoid)
+- [設定 Animator 參數時，使用 StringToHash](設定-animator-參數時使用-stringtohash)
 - [資料來源](#資料來源)
 
 # 盡可能的讓判斷條件不要在迴圈中
@@ -292,7 +294,7 @@ public void UpdateCharacter()
 
 # 避免使用下列 Unity API
 - [GameObject.SendMessage](https://docs.unity3d.com/ScriptReference/GameObject.SendMessage.html)
-- [GameObject.BroadcastMessage](https://docs.unity3d.com/ScriptReference/GameObject.BroadcastMessage.html)
+- [GameObject.oadcastMessage](https://docs.unity3d.com/ScriptReference/GameObject.BroadcastMessage.html)
 - [GameObject.Find](https://docs.unity3d.com/ScriptReference/GameObject.Find.html)
 - [GameObject.FindGameObjectsWithTag](https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html)
 - [GameObject.FindWithTag](https://docs.unity3d.com/ScriptReference/GameObject.FindWithTag.html)
@@ -766,7 +768,7 @@ protected override void CacheComponents()
 ```
 
 # 看不到物件時，關閉不需要執行的組件
-當物件存在於場景中，即使物件在可視範圍之外其身上的組件也會持續運作，當這類組件的數量變多時，就會開始影響遊戲性能。<br\>
+當物件存在於場景中，即使物件在可視範圍之外其身上的組件也會持續運作，當這類組件的數量變多時，就會開始影響遊戲性能。<br/>
 建議當物件在視錐體之外或沒有顯示在畫面上時，關閉將下列組件。
 
 - CanvasScaler
@@ -774,6 +776,15 @@ protected override void CacheComponents()
 - InputField
 - DynamicBone
 - 其他任何昂貴的 MonoBehaviour
+
+# 設定 Shader 參數時，使用 PropertyToID
+Unity 執行後會給予 Shader 參數名稱一個唯一的識別符。<br/>
+比起使用參數名稱傳遞資料，使用識別符更為高效。<br/>
+[Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html)
+
+# 設定 Animator 參數時，使用 StringToHash
+同理 Shader.ProertyToID，使用 Animator.StringToHash 更為高效。
+[Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html)
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
