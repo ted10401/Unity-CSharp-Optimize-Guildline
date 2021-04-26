@@ -26,6 +26,7 @@ Unity-CSharp-Optimize-Guildline
 - [看不到物件時，關閉不需要執行的組件](#看不到物件時關閉不需要執行的組件)
 - [設定 Shader 參數時，使用 PropertyToID](#設定-shader-參數時使用-propertytoid)
 - [設定 Animator 參數時，使用 StringToHash](#設定-animator-參數時使用-stringtohash)
+- [預先定義 List 或 Dictionary 的初始化大小](#預先定義-list-或-dictionary-的初始化大小)
 - [資料來源](#資料來源)
 
 # 盡可能的讓判斷條件不要在迴圈中
@@ -831,6 +832,58 @@ private void SetBoolParameter(bool value)
 |--------------------------------------------|---------|----------|
 | Animator.SetBool(string name, bool value)  | 19.86   | 0 B      |
 | Animator.SetBool(int nameID, bool value)   | 16.78   | 0 B      |
+
+# 預先定義 List 或 Dictionary 的初始化大小
+
+調整前
+```csharp
+private void InitializeList(int count)
+{
+    m_list = new List<int>();
+    for(int i = 0; i < count; i++)
+    {
+        m_list.Add(i);
+    }
+}
+
+private void InitializeDictionary(int count)
+{
+    m_dictionary = new Dictionary<int, int>();
+    for(int i = 0; i < count; i++)
+    {
+        m_dictionary.Add(i, i);
+    }
+}
+```
+
+調整後
+```csharp
+private void InitializeList(int count)
+{
+    m_list = new List<int>(count);
+    for(int i = 0; i < count; i++)
+    {
+        m_list.Add(i);
+    }
+}
+
+private void InitializeDictionary(int count)
+{
+    m_dictionary = new Dictionary<int, int>(count);
+    for(int i = 0; i < count; i++)
+    {
+        m_dictionary.Add(i, i);
+    }
+}
+```
+
+效能比較 (執行次數 100000)
+|                         | Time ms | GC Alloc |
+|-------------------------|---------|----------|
+| List 無初始化大小       | 16.77   | 1.0 MB   |
+| List 有初始化大小       | 8.72    | 390.7 KB |
+| Dictionary 無初始化大小 | 40.42   | 5.8 MB   |
+| Dictionary 有初始化大小 | 36.50   | 2.1 MB   |
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
