@@ -24,8 +24,8 @@ Unity-CSharp-Optimize-Guildline
 - [避免使用解構子](#避免使用解構子)
 - [盡可能預先快取組件](#盡可能預先快取組件)
 - [看不到物件時，關閉不需要執行的組件](#看不到物件時關閉不需要執行的組件)
-- [設定 Shader 參數時，使用 PropertyToID](設定-shader-參數時使用-propertytoid)
-- [設定 Animator 參數時，使用 StringToHash](設定-animator-參數時使用-stringtohash)
+- [設定 Shader 參數時，使用 PropertyToID](#設定-shader-參數時使用-propertytoid)
+- [設定 Animator 參數時，使用 StringToHash](#設定-animator-參數時使用-stringtohash)
 - [資料來源](#資料來源)
 
 # 盡可能的讓判斷條件不要在迴圈中
