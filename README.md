@@ -23,6 +23,7 @@ Unity-CSharp-Optimize-Guildline
 - [使用 struct 取代 class](#使用-struct-取代-class)
 - [避免使用解構子](#避免使用解構子)
 - [盡可能預先快取組件](#盡可能預先快取組件)
+- [物件看不到時，關閉不需要執行的組件](#物件看不到時，關閉不需要執行的組件)
 - [資料來源](#資料來源)
 
 # 盡可能的讓判斷條件不要在迴圈中
@@ -715,7 +716,7 @@ private void Execute()
 | 有解構子   | 4.48    | 195.3 KB |
 | 沒有解構子 | 2.14    | 195.3 KB |
 
-#盡可能預先快取組件
+# 盡可能預先快取組件
 調整前
 ```csharp
 [SerializeField] protected Transform m_transform = null;
@@ -763,6 +764,16 @@ protected override void CacheComponents()
     CacheComponentsInChildren(ref m_inputFields, true);
 }
 ```
+
+# 物件看不到時，關閉不需要執行的組件
+當物件存在於場景中，即使物件在可視範圍之外其身上的組件也會持續運作，當這類組件的數量變多時，就會開始影響遊戲性能。<br\>
+建議當物件在視錐體之外或沒有顯示在畫面上時，關閉將下列組件。
+
+- CanvasScaler
+- ScrollRect
+- InputField
+- DynamicBone
+- 其他任何昂貴的 MonoBehaviour
 
 # 資料來源
 - [Fixing Performance Problems](https://learn.unity.com/tutorial/fixing-performance-problems#5c7f8528edbc2a002053b595)
