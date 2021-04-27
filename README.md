@@ -652,7 +652,7 @@ string output = m_stringBuilder.ToString();
 |                      | Time ms | GC Alloc |
 |----------------------|---------|----------|
 | String +=            | 563.65  | 477.1 MB |
-| String.Format        | 8.72    | 1.07 GB  |
+| String.Format        | 1331.72 | 1.07 GB  |
 | StringBuilder.Append | 0.48    | 97.7 KB  |
 
 # 生成大量相同物件使用 Object Pool
