@@ -19,6 +19,7 @@ Unity-CSharp-Optimize-Guildline
 - [使用 is 或 as 而不是強制類型轉換](#使用-is-或-as-而不是強制類型轉換)
 - [避免大量使用 MonoBehaviour.Update、FixedUpdate、LateUpdate](#避免大量使用-monobehaviourupdatefixedupdatelateupdate)
 - [大量字元串接時使用 String.Concat](#大量字元串接時使用-stringconcat)
+- [大量字串串接時使用 StringBuilder.Append](#大量字串串接時使用-stringbuilderappend)
 - [生成大量相同物件使用 Object Pool](#生成大量相同物件使用-object-pool)
 - [使用 struct 取代 class](#使用-struct-取代-class)
 - [避免使用解構子](#避免使用解構子)
@@ -615,6 +616,44 @@ string output = string.Concat(chars);
 |---------------|----------|----------|
 | String +=     | 11723.20 | 1.32 GB  |
 | String.Concat | 27.50   | 3.3 MB   |
+
+# 大量字串串接時使用 StringBuilder.Append
+調整前 - String +=
+```csharp
+string output = string.Empty;
+for(int i = 0; i < count; i++)
+{
+    output += value;
+}
+```
+
+調整前 - String.Format
+```csharp
+private const string FORMAT = "{0}{1}";
+string output = string.Empty;
+for (int i = 0; i < count; i++)
+{
+    output = string.Format(FORMAT, output, value);
+}
+```
+
+調整後
+```csharp
+m_stringBuilder.Clear();
+for (int i = 0; i < count; i++)
+{
+    m_stringBuilder.Append(value);
+}
+
+string output = m_stringBuilder.ToString();
+```
+
+數據比較 (執行次數 10000)
+|                      | Time ms | GC Alloc |
+|----------------------|---------|----------|
+| String +=            | 563.65  | 477.1 MB |
+| String.Format        | 8.72    | 1.07 GB  |
+| StringBuilder.Append | 0.48    | 97.7 KB  |
 
 # 生成大量相同物件使用 Object Pool
 調整前
