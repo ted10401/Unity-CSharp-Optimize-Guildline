@@ -390,7 +390,7 @@ public void UpdateCharacter()
 
 # 盡可能使用 Transform.localPosition
 調整前
-```csharpcsharp
+```csharp
 public void UpdateCharacter()  
 {  
     var lastPos = m_transform.position;  
@@ -457,7 +457,7 @@ for(int i = 0; i < length; i++)
 }  
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |         | Time ms | GC Alloc |
 |---------|---------|----------|
 | foreach | 28.04   | 48 B     |
@@ -482,7 +482,7 @@ for (int i = 0; i < length; i++)
 }  
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |       | Time ms | GC Alloc |
 |-------|---------|----------|
 | List  | 17.44   | 0 B      |
@@ -517,7 +517,7 @@ FastEnum.TryParse<State>(stringValue, out result);
 FastEnum.ToString<State>((int)result); 
 ```
 
-效能比較 (執行次數 100000)<br/>
+數據比較 (執行次數 100000)<br/>
 Enum > FastEnum
 |                 | Time ms         | GC Alloc        |
 |-----------------|-----------------|-----------------|
@@ -542,7 +542,7 @@ public int intValue { get; set; }
 public int intValue;  
 ```
 
-效能比較 (執行次數 1000000)
+數據比較 (執行次數 1000000)
 |          | Time ms | GC Alloc |
 |----------|---------|----------|
 | Property | 41.00   | 0 B      |
@@ -581,7 +581,7 @@ public class TestOptimizedMonoBehaviour : CoreComponent
 }  
 ```
 
-效能比較 (執行次數 10000)
+數據比較 (執行次數 10000)
 |               | Time ms | GC Alloc |
 |---------------|---------|----------|
 | MonoBehaviour | 4.01    | 0 B      |
@@ -610,7 +610,7 @@ for (int i = 0; i < stringLength; i++)
 string output = string.Concat(chars);  
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |               | Time ms  | GC Alloc |
 |---------------|----------|----------|
 | String +=     | 11723.20 | 1.32 GB  |
@@ -669,7 +669,7 @@ private void Execute()
 }  
 ```
 
-效能比較 (執行次數 10000)
+數據比較 (執行次數 10000)
 |        | Time ms | GC Alloc |
 |--------|---------|----------|
 | class  | 5.68    | 312.5 KB |
@@ -713,7 +713,7 @@ private void Execute()
 }  
 ```
 
-效能比較 (執行次數 10000)
+數據比較 (執行次數 10000)
 |            | Time ms | GC Alloc |
 |------------|---------|----------|
 | 有解構子   | 4.48    | 195.3 KB |
@@ -800,7 +800,7 @@ private void SetColor(Color value)
 }
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |                                              | Time ms | GC Alloc |
 |----------------------------------------------|---------|----------|
 | Material.SetColor(string name, Color value)  | 44.38   | 0 B      |
@@ -827,7 +827,7 @@ private void SetBoolParameter(bool value)
 }
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |                                            | Time ms | GC Alloc |
 |--------------------------------------------|---------|----------|
 | Animator.SetBool(string name, bool value)  | 19.86   | 0 B      |
@@ -877,7 +877,7 @@ private void InitializeDictionary(int count)
 }
 ```
 
-效能比較 (執行次數 100000)
+數據比較 (執行次數 100000)
 |                         | Time ms | GC Alloc |
 |-------------------------|---------|----------|
 | List 無初始化大小       | 16.77   | 1.0 MB   |
