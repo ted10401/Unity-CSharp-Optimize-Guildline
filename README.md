@@ -613,8 +613,8 @@ string output = string.Concat(chars);
 效能比較 (執行次數 100000)
 |               | Time ms  | GC Alloc |
 |---------------|----------|----------|
-| String +=     | 11628.02 | 1.32 GB  |
-| String.Concat | 112.28   | 3.3 MB   |
+| String +=     | 11723.20 | 1.32 GB  |
+| String.Concat | 27.50   | 3.3 MB   |
 
 # 生成大量相同物件使用 Object Pool
 調整前
